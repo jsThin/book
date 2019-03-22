@@ -1,7 +1,7 @@
 <template>
     <div class="home_header">
         <router-link to="/">
-            <i class="iconfont back">&#xe629;</i>
+            <i class="iconfont back" v-if="back">&#xe629;</i>
         </router-link>
         <slot></slot>
     </div>
@@ -9,7 +9,12 @@
 
 <script>
 export default {
-    name: 'Header'
+    name: 'Header',
+    data() {
+        return {
+            "back": true
+        }
+    }
 }
 </script>
 
