@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import HomeHeader from '../base/common/header';
+import HomeHeader from '../base/common/Header';
 export default {
     name: 'Home',
     components: {

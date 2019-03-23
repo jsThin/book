@@ -1,12 +1,16 @@
 <template>
     <div>
-        列表
+        <list-header>列表</list-header>
     </div>
 </template>
 
 <script>
+import ListHeader from '../base/common/Header';
 export default {
-    name: 'List'
+    name: 'List',
+    components: {
+        ListHeader
+    }
 }
 </script>
 

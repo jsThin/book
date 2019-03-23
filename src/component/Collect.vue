@@ -1,12 +1,16 @@
 <template>
     <div>
-        收藏
+        <collect-header>收藏</collect-header>
     </div>
 </template>
 
 <script>
+import CollectHeader from '../base/common/Header';
 export default {
-    name: 'Collect'
+    name: 'Collect',
+    components: {
+        CollectHeader
+    }
 }
 </script>
 

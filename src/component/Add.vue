@@ -1,12 +1,16 @@
 <template>
     <div>
-        增加
+        <add-header>增加</add-header>
     </div>
 </template>
 
 <script>
+import AddHeader from '../base/common/Header';
 export default {
-    name: 'Add'
+    name: 'Add',
+    components: {
+       AddHeader 
+    }
 }
 </script>
 
