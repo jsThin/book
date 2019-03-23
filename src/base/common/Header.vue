@@ -1,8 +1,6 @@
 <template>
     <div class="home_header">
-        <router-link to="/">
-            <i class="iconfont back" v-if="back">&#xe629;</i>
-        </router-link>
+            <i class="iconfont back" v-if="back" @click="goBack">&#xe629;</i>
         <slot></slot>
     </div>
 </template>
@@ -10,9 +8,12 @@
 <script>
 export default {
     name: 'Header',
-    data() {
-        return {
-            "back": true
+    props: {
+        'back': Boolean
+    },
+    methods: {
+        goBack() {
+            this.$router.go(-1);
         }
     }
 }

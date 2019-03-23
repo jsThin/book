@@ -1,6 +1,6 @@
 <template>
     <div>
-        <add-header>增加</add-header>
+        <add-header :back='back'>增加</add-header>
     </div>
 </template>
 
@@ -10,6 +10,11 @@ export default {
     name: 'Add',
     components: {
        AddHeader 
+    },
+    data() {
+        return {
+            'back': true
+        }
     }
 }
 </script>

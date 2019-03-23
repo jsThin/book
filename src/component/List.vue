@@ -1,6 +1,6 @@
 <template>
     <div>
-        <list-header>列表</list-header>
+        <list-header :back='back'>列表</list-header>
     </div>
 </template>
 
@@ -10,6 +10,11 @@ export default {
     name: 'List',
     components: {
         ListHeader
+    },
+    data() {
+        return {
+            'back': true
+        }
     }
 }
 </script>
