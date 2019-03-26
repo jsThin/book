@@ -38,6 +38,7 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 
 ## 五、轮播图
 #### vue-awesome-swiper插件 v2.6.7
+#####注意：插件的使用，需要使用vue.use(插件)
 #### 使用nodejs搭建mock数据接口 
 ```
 http.createServer((req,res) => {
