@@ -29,10 +29,31 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 #### 搭建页面架构，配置相关路由
 
 ## 三、Tab组件开发
-#### 使用伸缩布局
+#### 伸缩布局
 #### 阿里矢量图标的使用
 
 ## 四、Header组件开发
 #### 使用插槽，复用组件
 #### 
+
+## 五、轮播图
+#### vue-awesome-swiper插件 v2.6.7
+#### 使用nodejs搭建mock数据接口 
+```
+http.createServer((req,res) => {
+    //设置响应头解决跨域
+    .....
+    //导入资源
+    let sliders = require('./index.js')
+    //获取请求url
+    let {pathname,query} = url.parse(req.url);
+    //获取轮播图
+    if(pathname === '/sliders') {
+        res.end(JSON.stringify(sliders))
+    }
+}).listen(4000)
+```
+#### 使用axios发送ajax请求获取数据
+#### 组件父传子渲染视图
+
 
