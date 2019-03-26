@@ -58,6 +58,4 @@ http.createServer((req,res) => {
 #### 组件父传子渲染视图
 ##### 在swiper组件的父组件home中调用api获取数据，传递个子组件
 
-### 六、开发热门图书
-
 
