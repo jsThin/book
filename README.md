@@ -38,7 +38,7 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 
 ## 五、轮播图
 #### vue-awesome-swiper插件 v2.6.7
-#####注意：插件的使用，需要使用vue.use(插件)
+##### 注意：插件的使用，需要使用vue.use(插件)
 #### 使用nodejs搭建mock数据接口 
 ```
 http.createServer((req,res) => {
@@ -54,7 +54,10 @@ http.createServer((req,res) => {
     }
 }).listen(4000)
 ```
-#### 使用axios发送ajax请求获取数据
+#### 在api中使用axios发送ajax请求获取数据
 #### 组件父传子渲染视图
+##### 在swiper组件的父组件home中调用api获取数据，传递个子组件
+
+### 六、开发热门图书
 
 
