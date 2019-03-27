@@ -32,6 +32,7 @@ http.createServer((req,res)=>{
     }
     if (pathname === '/hot') {
         read(function(hotBooks) {
+            hotBooks = hotBooks.reverse().slice(0,5);
             res.end(JSON.stringify(hotBooks));
         });
     }
