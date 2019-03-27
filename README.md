@@ -59,3 +59,24 @@ http.createServer((req,res) => {
 ##### 在swiper组件的父组件home中调用api获取数据，传递个子组件
 
 
+### 六、开发热门图书组件(home-hot)
+#### 模拟数据 books.json
+#### node fs模块读取文件数据(readFile())
+```
+function read(callback) {
+    fs.readFile('./books.json','utf8',(err,data) => {
+        if(err) {
+            callback([]);
+        }
+        callback(JSON.parse(data));
+    });
+}
+```
+#### axios设置拦截器，返回res.data
+```
+axios.interceptors.response.use(function (res) {
+    return res.data;
+},function (error) {
+    return Promise.reject(error);
+});
+```
