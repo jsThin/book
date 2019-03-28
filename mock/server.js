@@ -24,10 +24,12 @@ http.createServer((req,res)=>{
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Headers", "X-Requested-With");
     res.setHeader("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type,Access-Token");
     res.setHeader("X-Powered-By",' 3.2.1')
     res.setHeader("Content-Type", "application/json;charset=utf-8");
     //获取路径 
     let {pathname,query} = url.parse(req.url,true);
+    let id = query.id;
     //判断是何种请求
     if(req.method === 'OPTIONS') return res.end("");
     switch(req.method) {
@@ -54,8 +56,8 @@ http.createServer((req,res)=>{
             //返回某本图书--detail
             if (pathname === '/book') {
                 read(function(book) {
-                    //book = book.filter(item => item.bookId === query.id)[0];
-                    book = book.find(item => item.bookId === query.id);
+                    //book = book.filter(item => item.bookId === id)[0];
+                    book = book.find(item => item.bookId === id);
                     if(!book) book = {};
                     res.end(JSON.stringify(book));
                 });
@@ -64,12 +66,35 @@ http.createServer((req,res)=>{
         case 'POST':
             break;
         case 'PUT':
+            let str = '';
+            //获取前台发送的数据
+            req.on("data",chunck => {
+                str += chunck;
+            });
+            req.on('end',() => {
+                //将前端数据转化为json类型
+                let book = JSON.parse(str);
+                read(function(books) {
+                    //遍历books.json文件，如果找到与id匹配的项，
+                    //则用前台发来的数据替换，否则返回数据本身
+                    books = books.map(item => {
+                        if (item.bookId === id) {
+                            return book;
+                        }
+                        return item;
+                    });
+                    //将新的数据写入books.json文件
+                    write(books,function() {
+                        res.end(JSON.stringify({}));
+                    })
+                });
+            });
             break;
         case 'DELETE':
             //读取文件原有资源
             read(function(books) {
                 //根据id过滤删除的数据
-                books = books.filter(item => item.bookId !== query.id);
+                books = books.filter(item => item.bookId !== id);
                 //数据重新写入文件中
                 write(books,function() {
                     //删除成功后，遵循规范，向前端返回一个空对象（阮一峰 restful）

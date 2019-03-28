@@ -140,4 +140,49 @@ async getData() {
 <!-- .stop处理事件冒泡 -->
 <button class="remove" @click.stop="remove(book.bookId)">删除</button>
 ```
-#### 
+
+#### 修改图书信息 (PUT)
+##### 后端接口 node.js
+```
+let str = '';
+//获取前台发送的数据
+req.on("data",chunck => {
+    str += chunck;
+});
+req.on('end',() => {
+    //将前端数据转化为json类型
+    let book = JSON.parse(str);
+    read(function(books) {
+        //遍历books.json文件，如果找到与id匹配的项，
+        //则用前台发来的数据替换，否则返回项本身
+        books = books.map(item => {
+            if (item.bookId === id) {
+                return book;
+            }
+            return item;
+        });
+        //将新的数据写入books.json文件
+        write(books,function() {
+            res.end(JSON.stringify({}));
+        });
+    });
+});
+```
+##### axios 发送put请求---将前端的数据发送到后台
+```
+export let updateBook = (id,data) => {
+    return axios.put(`/update?id=${id}`,data);
+}
+```
+##### 注意：发送put请求之前，浏览器会发送预请求options，请求通过才发送put请求
+```
+//设置响应头解决跨域问题
+res.setHeader("Access-Control-Allow-Origin", "*");
+res.setHeader("Access-Control-Allow-Headers", "X-Requested-With");
+res.setHeader("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+res.setHeader("Access-Control-Allow-Headers", "Content-Type,Access-Token");
+res.setHeader("X-Powered-By",' 3.2.1')
+res.setHeader("Content-Type", "application/json;charset=utf-8");
+```
+
+

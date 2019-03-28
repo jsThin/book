@@ -28,6 +28,10 @@ export let removeBook = (id) => {
 }
 //获取一本书--detail
 export let getBook = (id) => {
-    return axios.get(`/book?id=${id}`)
+    return axios.get(`/book?id=${id}`);
+}
+//修改图书信息
+export let updateBook = (id,data) => {
+    return axios.put(`/update?id=${id}`,data);
 }
   

@@ -16,7 +16,7 @@
                     <label>介绍<textarea v-model="book.bookDesc"></textarea></label>
                 </li>
                 <li>
-                    <button>保存</button>
+                    <button @click="save(book.bookId)">保存</button>
                 </li>
             </ol>
         </div>
@@ -25,7 +25,7 @@
 
 <script>
 import DetailHeader from '../base/common/Header';
-import {getBook} from '../api/index.js'
+import {getBook,updateBook} from '../api/index.js'
 export default {
     name: 'Detail',
     data() {
@@ -41,6 +41,12 @@ export default {
             this.book = await getBook(this.$route.params.bid);
             //假如是空对象，跳转到列表页
             if(!this.book.bookId) this.$router.push('/list');
+        },
+        async save(id) {
+            //修改书籍信息
+            await updateBook(id,this.book);
+            //返回list页
+            this.$router.push('/list');
         }
     },
     components: {
