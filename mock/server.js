@@ -29,7 +29,6 @@ http.createServer((req,res)=>{
     //获取路径 
     let {pathname,query} = url.parse(req.url,true);
     //判断是何种请求
-    console.log(req.method);
     if(req.method === 'OPTIONS') return res.end("");
     switch(req.method) {
         case 'GET':
@@ -50,6 +49,13 @@ http.createServer((req,res)=>{
                 read(function(books) {
                     //向前台发送数据
                     res.end(JSON.stringify(books));
+                });
+            }
+            //返回某本图书--detail
+            if (pathname === '/book') {
+                read(function(book) {
+                    book = book.filter(item => item.bookId === query.id)[0];
+                    res.end(JSON.stringify(book));
                 });
             }
             break;

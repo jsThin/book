@@ -1,6 +1,6 @@
 <template>
     <div>
-        <collect-header :back='back'>收藏</collect-header>
+        <collect-header :back='true'>收藏</collect-header>
     </div>
 </template>
 
@@ -13,7 +13,6 @@ export default {
     },
     data() {
         return {
-            'back': true
         }
     }
 }

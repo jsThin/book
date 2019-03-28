@@ -1,8 +1,14 @@
 <template>
     <div>
-        <list-header :back='back'>列表</list-header>
+        <list-header :back="true">列表</list-header>
         <ul>
-            <li class="list" v-for="book in allBooks" :key="book.bookId">
+            <router-link 
+                class="list" 
+                v-for="book in allBooks" 
+                :key="book.bookId"
+                tag="li"
+                :to="{name:'detail',params:{bid:book.bookId}}"
+            >
                 <div class="book-img">
                     <img :src="book.bookCover" :alt="book.bookName">
                 </div>
@@ -10,9 +16,10 @@
                     <b>{{book.bookName}}</b>
                     <p class="desc">{{book.bookDesc}}</p>
                     <p class="price">{{book.bookPrice}}</p>
-                    <button class="remove" @click="remove(book.bookId)">删除</button>
+                    <!-- .stop处理事件冒泡 -->
+                    <button class="remove" @click.stop="remove(book.bookId)">删除</button>
                 </div>
-            </li>
+            </router-link>
         </ul>
     </div>
 </template>
@@ -24,7 +31,6 @@ export default {
     name: 'List',
     data() {
         return {
-            'back': true,
             allBooks: []
         }
     },

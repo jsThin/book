@@ -1,6 +1,6 @@
 <template>
     <div>
-        <home-header :back='back'>首页</home-header>
+        <home-header :back="false">首页</home-header>
         <div class="carrousel">
             <home-swiper :sliders='sliders'></home-swiper>
         </div>
@@ -33,7 +33,6 @@ export default {
     },
     data() {
         return {
-            'back': false,
             sliders: [],
             hotBooks: []
         }

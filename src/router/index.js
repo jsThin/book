@@ -16,27 +16,27 @@ export default new Router({
     },
     {
       path: '/home',
-      name: 'Home',
+      name: 'home',
       component: Home
     },
     {
       path: '/add',
-      name: 'Add',
+      name: 'add',
       component: Add
     },
     {
       path: '/list',
-      name: 'List',
+      name: 'list',
       component: List
     },
     {
       path: '/collect',
-      name: 'Collect',
+      name: 'collect',
       component: Collect
     },
     {
-      path: '/detail',
-      name: 'Detail',
+      path: '/detail/:bid',
+      name: 'detail',
       component: Detail
     },
     {

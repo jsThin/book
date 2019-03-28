@@ -116,3 +116,28 @@ async remove(id) {
     this.allBooks = this.allBooks.filter(item => item.bookId !== id);
 }
 ```
+
+### 八、图书详情---在新的页面中展示书本信息，使用表单展示，可修改界面
+#### 使用vue动态路由
+```
+//路由配置
+{
+    path: '/detail/:bid',
+    name: 'detail',
+    component: Detail
+}
+//
+<router-link :to="{name:'detail',params:{bid:book.bookId}}"></router-link>
+```
+#### 路由参数会被设置到this.route.params,可以在组件中使用
+```
+async getData() {
+    this.book = await getBook(this.$route.params.bid);
+}
+```
+#### 处理事件冒泡
+```
+<!-- .stop处理事件冒泡 -->
+<button class="remove" @click.stop="remove(book.bookId)">删除</button>
+```
+#### 

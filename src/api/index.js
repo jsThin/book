@@ -26,4 +26,8 @@ export let removeBook = (id) => {
     //使用es6模板字符串
     return axios.delete(`/remove?id=${id}`);
 }
+//获取一本书--detail
+export let getBook = (id) => {
+    return axios.get(`/book?id=${id}`)
+}
   
