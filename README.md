@@ -80,3 +80,13 @@ axios.interceptors.response.use(function (res) {
     return Promise.reject(error);
 });
 ```
+
+### 七、图书列表页开发
+#### header组件
+#### node写数据接口
+#### 写api
+#### 前端渲染
+#### axios发送delete请求删除图书
+#### 删除数据思路
+##### 后端---传递id，过滤数组，重新写入文件
+##### 前端---过滤数组，或者重新发送请求请求数据()。。。。

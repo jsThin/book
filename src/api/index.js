@@ -17,4 +17,13 @@ export let getSliders = () => {
 export let getHotBooks = () => {
     return axios.get('/hot');
 }
+//获取全部图书信息
+export let getAllBooks = () => {
+    return axios.get('/allbooks');
+}
+//删除图书
+export let removeBook = (id) => {
+    //使用es6模板字符串
+    return axios.delete(`/remove?id=${id}`);
+}
   
