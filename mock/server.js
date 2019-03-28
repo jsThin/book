@@ -54,7 +54,9 @@ http.createServer((req,res)=>{
             //返回某本图书--detail
             if (pathname === '/book') {
                 read(function(book) {
-                    book = book.filter(item => item.bookId === query.id)[0];
+                    //book = book.filter(item => item.bookId === query.id)[0];
+                    book = book.find(item => item.bookId === query.id);
+                    if(!book) book = {};
                     res.end(JSON.stringify(book));
                 });
             }

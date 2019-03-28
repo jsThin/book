@@ -4,16 +4,19 @@
         <div class="detail">
             <ol>
                 <li>
-                    <label>书名<input type="text" :value="book.bookName" /></label>
+                    <label>书名<input type="text" v-model="book.bookName" /></label>
                 </li>
                 <li>
-                    <label>作者<input type="text" :value="book.author" /></label>
+                    <label>作者<input type="text" v-model="book.author" /></label>
                 </li>
                 <li>
-                    <label>价格<input type="text" :value="book.bookPrice" /></label>
+                    <label>价格<input type="text" v-model="book.bookPrice" /></label>
                 </li>
                 <li>
-                    <label>介绍<textarea :value="book.bookDesc"></textarea></label>
+                    <label>介绍<textarea v-model="book.bookDesc"></textarea></label>
+                </li>
+                <li>
+                    <button>保存</button>
                 </li>
             </ol>
         </div>
@@ -55,6 +58,7 @@ export default {
         z-index: 99;
         li {
             line-height: .86rem;
+            margin-left: .2rem;
             input,textarea {
                 width: 5rem;
                 line-height: .56rem;
@@ -62,6 +66,14 @@ export default {
             }
             textarea {
                 height: 3rem;
+            }
+            button {
+                outline: none;
+                background-color: #f40;
+                width: 1rem;
+                height: .5rem;
+                line-height: .5rem;
+                border-radius: .1rem;
             }
         }
     }
