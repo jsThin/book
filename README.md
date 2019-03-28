@@ -87,6 +87,32 @@ axios.interceptors.response.use(function (res) {
 #### 写api
 #### 前端渲染
 #### axios发送delete请求删除图书
+```
+export let removeBook = (id) => {
+    //使用es6模板字符串
+    return axios.delete(`/remove?id=${id}`);
+}
+```
 #### 删除数据思路
 ##### 后端---传递id，过滤数组，重新写入文件
+```
+//读取文件原有资源
+read(function(books) {
+    //根据id过滤删除的数据
+    books = books.filter(item => item.bookId !== query.id);
+    //数据重新写入文件中
+    write(books,function() {
+        //删除成功后，遵循规范，向前端返回一个空对象（阮一峰 restful）
+        res.end(JSON.stringify({}));
+    });
+});
+```
 ##### 前端---过滤数组，或者重新发送请求请求数据()。。。。
+```
+//删除某本图书
+async remove(id) {
+    await removeBook(id);
+    //前台处理删除
+    this.allBooks = this.allBooks.filter(item => item.bookId !== id);
+}
+```
