@@ -39,6 +39,8 @@ export default {
     methods: {
         async getData() {
             this.book = await getBook(this.$route.params.bid);
+            //假如是空对象，跳转到列表页
+            if(!this.book.bookId) this.$router.push('/list');
         }
     },
     components: {
