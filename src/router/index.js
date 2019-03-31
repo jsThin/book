@@ -17,7 +17,10 @@ export default new Router({
     {
       path: '/home',
       name: 'home',
-      component: Home
+      component: Home,
+      meta: {
+        KeepAlive: true
+      }
     },
     {
       path: '/add',

@@ -185,4 +185,17 @@ res.setHeader("X-Powered-By",' 3.2.1')
 res.setHeader("Content-Type", "application/json;charset=utf-8");
 ```
 
+#### 使用<keep-alive>Vue内置组件，在组件切换过程中，将状态保留在内存中，防止重复渲染DOM
+##### keep-alive 有两个属性
+##### include: 字符串或正则表达式。只有匹配的组件会被缓存。
+##### exclude: 字符串或正则表达式。任何匹配的组件都不会被缓存。
+##### 注意，使用正则表达式时，需要使用v-bind
+##### 结合router，缓存部分页面
+```
+<keep-alive>
+    <router-view v-if="$route.meta.KeepAlive"></router-view>
+</keep-alive>
+<router-view v-if="!$route.meta.KeepAlive"></router-view>
+```
+##### keep-alive生命周期钩子函数：activated、deactivated
 
