@@ -235,4 +235,47 @@ async getBooks(index) {
 }
 ```
 
+### 十、向上滚动加载更多
+##### vue的ref属性，获取dom对象
+```
+   <div id="scroll" ref="scroll"></div>
+   this.$refs.scroll === document.getElementById('scroll')
+```
+##### @scroll 滚动事件
+```
+    //clientHeight (clientWidth)  可视高度(宽度)
+    //scrollTop (scrollTop)     卷走的高度(宽度)
+    //scrollHeight (scrollWidth)  盒子的真实高度(宽度)
+    let {clientHeight,scrollTop,scrollHeight} = this.$refs.scroll;
+    //条件，当可视高度及卷走高度相加还剩20到达scrollHeight时发送请求
+    if((clientHeight + scrollTop + 20) >= scrollHeight) {
+        this.getMore();
+    }
+```
+##### 定时器实现事件节流
+```
+//清除定时器，保证只有一个定时器在使用
+clearTimeout(this.timer);
+//设置定时器，实现事件节流
+this.timer = setTimeout(() => {
+    let {clientHeight,scrollTop,scrollHeight} = this.$refs.scroll;
+    if((clientHeight + scrollTop + 20) >= scrollHeight) {
+        this.getMore();
+    }
+},30);
+```
+##### 发送请求性能优化
+```
+//有更多数据或者加载完成之后请求数据
+if(this.hasMore && this.hasLoad) {
+    this.hasLoad = false;
+    let {hasMore,books} = await getPage(index);
+    //合并图书
+    this.allBooks = [...this.allBooks,...books];
+    this.hasMore = hasMore;
+    this.index = this.allBooks.length;
+    this.hasLoad = true;
+}
+```
+
 

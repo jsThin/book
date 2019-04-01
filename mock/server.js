@@ -62,7 +62,7 @@ http.createServer((req,res)=>{
                 read(function(books) {
                     let result = books.slice(index,index+pageSize);
                     //当本次请求的数据少于5条时，hasMore设置为false，发送给前台
-                    if(result.length <= index+pageSize) {
+                    if(result.length < index+pageSize) {
                         hasMore = false;
                     }
                     //发送hasMore及响应数据给前台,books为result的别名
