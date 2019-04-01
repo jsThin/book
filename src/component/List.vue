@@ -21,26 +21,36 @@
                 </div>
             </router-link>
         </ul>
+        <button class="more" @click="getMore">加载更多</button>
     </div>
 </template>
 
 <script>
 import ListHeader from '../base/common/Header';
-import { getAllBooks,removeBook } from '../api/index.js'
+import { getPage,removeBook } from '../api/index.js'
 export default {
     name: 'List',
     data() {
         return {
-            allBooks: []
+            allBooks: [],
+            index: 0,
+            hasMore: true
         }
     },
     created() {
-        this.getAll();
+        this.getBooks(this.index);
     },
     methods: {
-        //获取图书信息
-        async getAll() {
-            this.allBooks = await getAllBooks();
+        getMore() {
+            this.getBooks(this.index)
+        },
+        //获取部分图书信息
+        async getBooks(index) {
+            let {hasMore,books} = await getPage(index);
+            //合并图书
+            this.allBooks = [...this.allBooks,...books];
+            this.hasMore = hasMore;
+            this.index = this.allBooks.length;
         },
         //删除某本图书
         async remove(id) {
@@ -56,9 +66,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-    ul {
-        padding-bottom: 1rem;
-    }
     .list {
         width: 100%;
         padding: .1rem 0;
@@ -97,6 +104,16 @@ export default {
                font-size: 15px;
             }
         }
+    }
+    .more {
+        margin-bottom: 1rem;
+        width: 100%;
+        height: .8rem;
+        line-height: .8rem;
+        background-color: #00BCD4;
+        font-size: 16px;
+        text-align: center;
+
     }
 </style>
 

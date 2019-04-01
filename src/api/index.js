@@ -34,4 +34,8 @@ export let getBook = (id) => {
 export let updateBook = (id,data) => {
     return axios.put(`/update?id=${id}`,data);
 }
+//获取部分图书
+export let getPage = (index) => {
+    return axios.get(`/page?index=${index}`);
+}
   

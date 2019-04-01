@@ -53,6 +53,22 @@ http.createServer((req,res)=>{
                     res.end(JSON.stringify(books));
                 });
             }
+            //加载更多显示详情页
+            let pageSize = 5; //定义每次加载的数量
+            if(pathname === '/page') {
+                //拿到前台传递的id
+                let index = query.index || 0;
+                let hasMore = true;
+                read(function(books) {
+                    let result = books.slice(index,index+pageSize);
+                    //当本次请求的数据少于5条时，hasMore设置为false，发送给前台
+                    if(result.length <= index+pageSize) {
+                        hasMore = false;
+                    }
+                    //发送hasMore及响应数据给前台,books为result的别名
+                    res.end(JSON.stringify({hasMore,books:result}));
+                });
+            }
             //返回某本图书--detail
             if (pathname === '/book') {
                 read(function(book) {

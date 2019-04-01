@@ -199,3 +199,40 @@ res.setHeader("Content-Type", "application/json;charset=utf-8");
 ```
 ##### keep-alive生命周期钩子函数：activated、deactivated
 
+### 九、列表页点击加载更多，显示更多，每次增加5本书
+##### 1 搭接口
+```
+let pageSize = 5; //定义每次加载的数量
+if(pathname === '/page') {
+    //拿到前台传递的id
+    let index = query.index || 0;
+    let hasMore = true;
+    read(function(books) {
+        let result = books.slice(index,index+pageSize);
+        //当本次请求的数据少于5条时，hasMore设置为false，发送给前台
+        if(result.length <= index+pageSize) {
+            hasMore = false;
+        }
+        //发送hasMore及响应数据给前台,books为result的别名
+        res.end(JSON.stringify({hasMore,books:result}));
+    });
+}
+```
+##### axios发送ajax请求
+```
+export let getPage = (index) => {
+    return axios.get(`/page?index=${index}`);
+}
+```
+##### 前端处理返回的数据
+```
+async getBooks(index) {
+    let {hasMore,books} = await getPage(index);
+    //合并图书
+    this.allBooks = [...this.allBooks,...books];
+    this.hasMore = hasMore;
+    this.index = this.allBooks.length;
+}
+```
+
+
