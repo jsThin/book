@@ -43,6 +43,54 @@ export default {
     created() {
         this.getBooks(this.index);
     },
+    mounted() {
+        //获取dom
+        let scroll = this.$refs.scroll;
+        //dom距离上层空间body的高度
+        let top = scroll.offsetTop;
+        //添加触摸开始事件
+        scroll.addEventListener('touchstart',(e) => {
+            //触摸开始位置
+            let start = e.touches[0].pageY;
+            let distant = 0;
+            let move = (e) => {
+                //实时位置
+                let current = e.touches[0].pageY;
+                //移动的距离
+                distant = current - start;
+                if(distant > 0) {
+                    if(distant <= 50) {
+                        scroll.style.top = top + distant + 'px';
+                    } else {
+                        scroll.style.top = top + 50 + 'px';
+                    } 
+                } else {
+                    scroll.removeEventListener('touchmove',move);
+                }
+            }
+            let end = (e) => {
+                clearInterval(this.timer2);
+                this.timer2 = setInterval(() => {
+                    distant -= 2;
+                    if (distant <= 0) {
+                        clearInterval(this.timer2);
+                        distant = 0;
+                        //获取数据
+                        this.index = 0;
+                        this.allBooks = [];
+                        this.getMore();
+                        return;
+                    }
+                    scroll.style.top = top + distant + 'px';
+                },3);
+            }
+            //移动时，dom跟着移动
+            scroll.addEventListener('touchmove',move);
+            //结束时，动画回弹，并且重新获取数据
+            scroll.addEventListener('touchend',end);
+        });
+        
+    },
     methods: {
         loadMore() {
             //清除定时器，保证只有一个定时器在使用

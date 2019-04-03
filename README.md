@@ -22,7 +22,7 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 
 ## 一、vue-cli 搭建项目结构
 #### 安装  npm install -g @vue/cli
-#### 运行  vue init webpack vue-book
+#### 运行  vue init webpack book
 
 ## 二、配置基础文件
 #### 导入reset.css、border.css等文件
@@ -277,5 +277,6 @@ if(this.hasMore && this.hasLoad) {
     this.hasLoad = true;
 }
 ```
-
+### 十一、下拉刷新
+##### 
 
