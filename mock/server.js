@@ -80,6 +80,23 @@ http.createServer((req,res)=>{
             }
             break;
         case 'POST':
+            let str2 = "";
+            req.on("data",chunck=> {
+                str2 += chunck; 
+            });
+            req.on("end",()=>{
+                let book = JSON.parse(str2);
+                read(function(books) {
+                    //获取id值
+                    book.bookId = books.length?books[books.length-1].bookId+1:1001;
+                    books.push(book);
+                    //写入文件
+                    write(books,function() {
+                        //向前端返回 
+                        res.end(JSON.stringify(book));
+                    });
+                })
+            });
             break;
         case 'PUT':
             let str = '';

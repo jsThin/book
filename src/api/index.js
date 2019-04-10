@@ -38,4 +38,7 @@ export let updateBook = (id,data) => {
 export let getPage = (index) => {
     return axios.get(`/page?index=${index}`);
 }
-  
+//添加图书
+export let addBook = (data) => {
+    return axios.post('/addbook',data);
+}

@@ -25,7 +25,7 @@
 
 <script>
 import DetailHeader from '../base/common/Header';
-import {getBook,updateBook} from '../api/index.js'
+import {getBook,updateBook} from '../api/index.js';
 export default {
     name: 'Detail',
     data() {
@@ -34,7 +34,7 @@ export default {
         }
     }, 
     created() {
-        this.getData()
+        this.getData();
     },
     methods: {
         async getData() {

@@ -1,7 +1,7 @@
 <template>
     <div>
         <list-header :back="true">列表</list-header>
-        <div class="listContent" @scroll="loadMore" ref="scroll">
+        <div class="listContent" >
             <ul>
                 <router-link 
                     class="list" 
@@ -44,7 +44,8 @@ export default {
         this.getBooks(this.index);
     },
     mounted() {
-        //获取dom
+        //下拉刷新功能，存在bug，待调试
+       /*  //获取dom
         let scroll = this.$refs.scroll;
         //dom距离上层空间body的高度
         let top = scroll.offsetTop;
@@ -89,10 +90,11 @@ export default {
             //结束时，动画回弹，并且重新获取数据
             scroll.addEventListener('touchend',end);
         });
-        
+         */
     },
     methods: {
-        loadMore() {
+        //拉到底部自动获取更多图书，使用时需在父盒子中添加@scroll="loadMore" ref="scroll"
+        /* loadMore() {
             //清除定时器，保证只有一个定时器在使用
             clearTimeout(this.timer);
             //设置定时器，实现事件节流
@@ -102,11 +104,11 @@ export default {
                 //scrollHeight(scrollWidth)  盒子的真实高度(宽度)
                 let {clientHeight,scrollTop,scrollHeight} = this.$refs.scroll;
                 //条件，当可视高度及卷走高度相加还剩20到达scrollHeight时发送请求
-                if((clientHeight + scrollTop + 20) >= scrollHeight) {
+                if((clientHeight + scrollTop + 0) >= scrollHeight) {
                     this.getMore();
                 }
             },30);
-        },
+        }, */
         getMore() {
             this.getBooks(this.index)
         },
