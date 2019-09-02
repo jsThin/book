@@ -1,100 +1,68 @@
 <template>
-    <div>
-        <home-header :back="false">首页</home-header>
-        <div class="carrousel">
-            <home-swiper :sliders='sliders'></home-swiper>
-        </div>
-        <h3>热门图书</h3>
-        <ul>
-            <li class="hot-book" v-for="book in hotBooks" :key="book.bookID">
-                <div class="book-img">
-                    <img :src="book.bookCover" :alt="book.bookName">
-                </div>
-                <div class="book-msg">
-                    <b>{{book.bookName}}</b>
-                    <p class="author">作者 {{book.author}}</p>
-                    <p class="price">{{book.bookPrice}}</p>
-                    <p class="desc">{{book.bookDesc}}</p>
-                </div>
-            </li>
-        </ul>
-    </div>
+  <div class="main">
+  <!--   <rich-text></rich-text>
+    <ul>
+      <li v-for="(item,index) in book" :key="index">{{item.name}}</li>
+    </ul>
+    <v-mock></v-mock>
+    <div>{{count}}</div>
+    <next-tick></next-tick>
+    <v-select></v-select>
+    <v-test></v-test> -->
+    <!-- <Socket></Socket> -->
+    <directive></directive>
+    <extend></extend>
+  </div>
 </template>
-
 <script>
-import HomeHeader from '../base/common/Header';
-import HomeSwiper from '../base/home/Swiper';
-import { getSliders,getHotBooks } from '../api/index.js';
-export default {
-    name: 'Home',
-    created() {
-        this.getSlider();
-        this.getHot();
-    },
+  import {api} from '../api/index.js'
+  import RichText from './richText.vue'
+  import NextTick from './nextTick.vue'
+  import Select from './select.vue'
+  import Socket from './socket.vue'
+  import directive from './directive.vue'
+  import extend from './extend.vue'
+  // import Test from './test.vue'
+  import Mock from './mock'
+  import { mapState } from 'vuex'
+  export default {
     data() {
-        return {
-            sliders: [],
-            hotBooks: []
-        }
+      return {
+        book:[]
+      }
     },
     components: {
-        HomeHeader,
-        HomeSwiper
+      NextTick,
+      RichText,
+      Socket,
+      "v-mock": Mock,
+      'v-select': Select,
+      // 'v-test': Test,
+      directive,
+      extend
     },
-    methods: {
-        async getSlider() {
-             this.sliders = await getSliders();
-        },
-        async getHot() {
-            this.hotBooks = await getHotBooks();
-        }
-    }
-}
+    created() {
+      let _this = this
+      api.post('/info/index', {
+        firstName: 'Fred',
+        lastName: 'Flintstone'
+      })
+      .then(function (response) {
+        _this.book = response.data.book
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    },
+    /* computed:mapState({
+        count: state => state.count
+    }) */
+    // computed: mapState(['count'])
+    computed: mapState({
+      count: 'count'
+    })
+
+  }
 </script>
-
-<style lang="less" scoped>
-    ul {
-        padding-bottom: 1rem;
-    }
-    h3 {
-        margin-left: .2rem;
-        height: .8rem;
-        line-height: .8rem;
-        font-weight: 700;
-    }
-    .hot-book {
-        width: 100%;
-        padding: .1rem 0;
-        border-top: .02rem solid #ccc;
-        display: flex;
-        .book-img {
-            flex: 1;
-            img {
-                width: 80%;
-            }
-        }
-        .book-msg {
-            flex: 1;
-            padding-right: .1rem;
-            b {
-                font-weight: 700;
-                line-height: .56rem;
-            }
-            .author {
-                line-height: .56rem;
-            }
-            .price {
-                line-height: .56rem;
-                color:#FF0036;
-            }
-            .desc {
-                line-height: .44rem;
-                display: -webkit-box;
-                -webkit-box-orient: vertical;
-                -webkit-line-clamp: 3;
-                overflow: hidden;
-            }
-        }
-    }
+<style scoped> 
 </style>
-

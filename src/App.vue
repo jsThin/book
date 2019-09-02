@@ -1,19 +1,27 @@
 <template>
   <div id="app">
-    <keep-alive>
-      <router-view v-if="$route.meta.KeepAlive"></router-view>
-    </keep-alive>
-    <router-view v-if="!$route.meta.KeepAlive"></router-view>
-    <tab></tab>
+      <router-view></router-view>
+      <v-loading v-show="isLoading"></v-loading>
   </div>
 </template>
 
 <script>
-import Tab from './base/common/Tab'
+import Loading from './component/_loading'
+import { mapGetters,mapActions } from 'vuex'
 export default {
   name: 'App',
+  data() {
+    return {
+      
+    }
+  },
+  computed: {
+    isLoading() {
+      return this.$store.getters.isLoading
+    }
+  },
   components: {
-    Tab
+    'v-loading': Loading
   }
 }
 </script>
